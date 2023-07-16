@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Structure News</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #fff;
+      text-align: center;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    a, button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      text-decoration: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    a:hover, button:hover {
+      background-color: #0056b3;
+    }
+
+    .json-container {
+      color: #fff;
+      padding: 10px;
+      background-color: #333;
+      overflow-y: scroll;
+      max-width: 100%;
+      max-height: 800px;
+      width: 80%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Structured News</h1>
+
+  <div class="button-container">
+    <a id="myLink" href="{{ api_url }}">Download the file</a>
+    <button onclick="copyToClipboard('{{ api_url }}')">Copy URL</button>
+  </div>
+
+  <div class="json-container">
+    <pre id="json-data">
+      {{jsonData}}
+    </pre>
+  </div>
+
+  <a href="http://127.0.0.1:5000/">Back</a>
+
+  <script>
+    // JSON data received from the server
+    var jsonData = JSON.parse('{{jsonData}}');
+
+    // Update the content of the <pre> element with the JSON data
+    document.getElementById("json-data").innerText = jsonData;
+
+    function copyToClipboard(url) {
+      // Create a temporary input element
+      var input = document.createElement('input');
+      input.style.opacity = 0;
+      input.value = url;
+      document.body.appendChild(input);
+
+      // Select the input value
+      input.select();
+      input.setSelectionRange(0, 99999); // For mobile devices
+
+      // Copy the selected value
+      document.execCommand('copy');
+
+      // Remove the temporary input element
+      document.body.removeChild(input);
+
+      alert('URL copied to clipboard: ' + url);
+    }
+  </script>
+</body>
+</html>

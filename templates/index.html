@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News API Request</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #fff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 500px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <form>
+    <h1>News API Request</h1>
+
+    <label for="urlInput">Enter URL:</label>
+    <input type="text" id="urlInput" name="urlInput" placeholder="https://www.example.com">
+    <button type="button" onclick="makeRequest()">Make Request</button>
+  </form>
+
+<script>
+  function makeRequest() {
+    // Get the URL from the input field
+    var url = document.getElementById("urlInput").value;
+
+    // Prepare the request data
+    var data = { url: url };
+
+    // Perform the request
+    fetch("http://127.0.0.1:5000/web", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.text())
+      .then(html => {
+        // Replace the current page's HTML with the response
+        document.open();
+        document.write(html);
+        document.close();
+      })
+      .catch(error => {
+        console.error("Request failed:", error);
+      });
+  }
+</script>
+
+</body>
+</html>
