@@ -17,7 +17,7 @@ distlib==0.3.6
 feedfinder2==0.0.4
 feedparser==6.0.10
 filelock==3.12.2
-Flask==2.3.2
+Flask>=2.0.0
 flatbuffers==23.5.26
 fsspec==2023.6.0
 gast==0.4.0
