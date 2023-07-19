@@ -94,5 +94,5 @@ tzlocal==5.0.1
 urllib3==1.26.16
 virtualenv==20.24.0
 waitress==2.1.2
-Werkzeug==2.3.6
+Werkzeug==2.2.3
 wrapt==1.15.0
