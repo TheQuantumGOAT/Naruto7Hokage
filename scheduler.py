@@ -18,8 +18,8 @@ def delet_old_files():
 
     """ current_date = datetime.date().today() # Get the current date
     one_week_ago = current_date - datetime.timedelta(weeks=1)  # Subtract one week from the current date
-    formatted_date = one_week_ago.strftime("%d/%m/%Y") """
-    current_date = datetime.date.today()
+    formatted_date = one_week_ago.strftime("%d/%m/%Y")  """
+    current_date = datetime.date.today() - datetime.timedelta(weeks=1)
     formatted_date = current_date.strftime("%d/%m/%Y") 
     l = [x for x in data if data[x]["date_added"] <= formatted_date]
     li = list()
@@ -45,7 +45,7 @@ def print_date_time():
 
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(func= delet_old_files, trigger="interval", seconds=60)
+scheduler.add_job(func= delet_old_files, trigger="interval", hours=24)
 scheduler.start()
 
 # Shut down the scheduler when exiting the app

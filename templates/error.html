@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        h1, p {
+            color: white;
+            text-align: center;
+        }
+
+        a.back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0056b3;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Error</h1>
+    <p>An error occurred:</p>
+    <p>{{ error }}</p>
+    <a href="{{referrer_url}}" class="back-button">Back</a>
+</body>
+</html>

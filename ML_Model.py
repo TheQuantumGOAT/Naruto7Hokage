@@ -1,4 +1,57 @@
 from newspaper import Article
+import requests
+
+def analyze_article(url, language):
+    # Download the article's HTML content
+    response = requests.get(url)
+    html = response.text
+
+    # Create an Article object and set the language and HTML content
+    article = Article(url, language=language)
+    article.set_html(html)
+
+    # Parse the HTML to extract relevant information
+    article.parse()
+
+    # Extract the main text content of the article
+    if article.text.strip() == '':
+        return
+    text = article.text
+    #text = text.encode().decode('unicode_escape')
+    
+    # Extract the title of the article
+    title = article.title
+    #title = title.encode().decode('unicode_escape')
+
+    # Extract the authors of the article
+    authors = article.authors
+
+    # Extract the publishing date of the article
+    publish_date = article.publish_date
+
+
+    # Extract the URL of the main image associated with the article
+    top_image = article.top_image
+
+    # Extract any embedded movies or videos in the article
+    movies = article.movies
+
+    # Extract the source URL of the article
+    source_url = article.source_url
+
+    # Extract the canonical URL of the article
+    canonical_url = article.canonical_link
+    # Print the extracted attributes
+    if not title and not publish_date and not text and not top_image and not movies and not source_url and not canonical_url:
+        return None
+    return {"Title:": title,
+    "Publish Date:": publish_date.strftime("%d/%m/%Y"),
+    "Text:": text,
+    "Top Image:": top_image,
+    "Movies:": movies,
+    "Source URL:": source_url
+    ,"Canonical URL:": canonical_url}
+    
 def fun(url):
     # Provide the URL of the article you want to analyze
     """ url = 'http://fox13now.com/2013/12/30/new-year-new-laws-obamacare-pot-guns-and-drones/' """
@@ -40,7 +93,7 @@ def fun(url):
 
     # Print the extracted attributes
     return {"Title:": title,
-    "Publish Date:": publish_date,
+    "Publish Date:": publish_date.strftime("%d/%m/%Y"),
     "Text:": text,
     "Top Image:": top_image,
     "Movies:": movies,

@@ -6,7 +6,7 @@ app.debug = True
 app.config['SECRET_KEY'] = 'supersecretkey'
 app.config['UPLOAD_FOLDER'] = 'static/files'
 
-
+global referrer_url
 @app.route("/", methods=['GET'])
 def index():
     #return 'templates/index.html'
@@ -15,11 +15,14 @@ def index():
 
 @app.route("/web", methods=['POST'])
 def inde():
+    referrer_url = request.referrer
+    
+
     URL = request.json['url']
     json_file = {}
     json_file =  Controller.controller(URL)
     api_url = json_file['URL']
-    return render_template('index2.html',api_url=api_url,jsonData =json_file['file'] ) 
+    return render_template('index2.html',api_url=api_url,jsonData =json_file['file'],referrer_url=referrer_url ) 
 
 
 @app.route("/API",methods= ['POST'])
@@ -39,3 +42,8 @@ def get_file(filename):
         return send_file(file_path, as_attachment=True)
     except Exception as e:
         return str(e), 404
+    
+@app.errorhandler(Exception)
+def internal_server_error(error):
+    referrer_url = request.referrer
+    return render_template('error.html', error=error,referrer_url = referrer_url ), 500
